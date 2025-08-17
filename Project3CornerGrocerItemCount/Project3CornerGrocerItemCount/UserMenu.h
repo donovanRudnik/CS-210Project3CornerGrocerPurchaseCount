@@ -12,15 +12,18 @@ class UserMenu {
 	public:
 		void PrintMenu();
 		void MenuFunctions();
+		int GetMenuNumSelection() { return menuNumSelection; }
 		UserMenu();
 
 	private:
 		string menuSelection;
-		IOFiles itemMap;
+		int menuNumSelection;
+		IOFiles IOMapAccess;
+		map<string, int> itemMap = IOMapAccess.GetMap();
 		void InputValidation(string& userInput);
 		void UserInputItemFreq();
-		void PrintItemCountList(map<string, int>& itemCounts);
-		void PrintItemCountHist(map<string, int>& itemCounts);
+		void PrintItemCountList();
+		void PrintItemCountHist();
 
 };
 

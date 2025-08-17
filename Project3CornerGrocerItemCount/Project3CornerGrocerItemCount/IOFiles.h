@@ -8,7 +8,8 @@ using namespace std;
 class IOFiles {
 	public:
 		int MapToOutputFile();
-		void PrintItemCountPair(string& itemName);
+		void PrintItemCountAlone(string& itemName);
+		map<string, int> GetMap() { return this->itemCountPairs; }
 		IOFiles();
 
 	private:

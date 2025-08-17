@@ -5,7 +5,8 @@ using namespace std;
 
 #include "IOFiles.h"
 
-
+// Opens a text file containing a list of produce items. Adds each item to a map
+// with keys representing item names and values representing how often the item appears.
 int IOFiles::InputFileToMap() {
 	ifstream inFS;
 	string itemName;
@@ -15,12 +16,14 @@ int IOFiles::InputFileToMap() {
 
 	inFS.open("CornerGrocerItemRecord.txt");
 
-	// TODO: WHEN USED, ADD CHECK FOR RETURN VALUE TO HANDLE ERROR
+	
 	if (!inFS.is_open()) {
 		cout << "Could not open CornerGrocerItemRecord.txt" << endl;
 		return 1;
 	}
 
+	// Loop until the end of file is reached or input fails.
+	// If item name is already present, increment the value in the map, otherwise create a new key-value pair.
 	while (!inFS.fail()) {
 		inFS >> itemName;
 		if (this->itemCountPairs.count(itemName) == 0) {
@@ -42,6 +45,7 @@ int IOFiles::InputFileToMap() {
 	return 0;
 }
 
+// Converts the contents of a map containing item names and their frequency to a frequency.dat file.
 int IOFiles::MapToOutputFile() {
 	string key;
 	ofstream outFS;
@@ -53,27 +57,39 @@ int IOFiles::MapToOutputFile() {
 		return 1;
 	}
 
+	// Loops through each item in the map. Outputs the key and value to the frequency.dat file.
 	for (auto itemCount : this->itemCountPairs) {
 		outFS << itemCount.first << " " << itemCount.second << endl;
 	}
 
+	outFS.close();
 	return 0;
 }
 
+// Constructor for IOFiles object. When object is created creates the map, fills it with items from
+// the .txt file, and then outputs the map information to the .dat file.
 IOFiles::IOFiles() {
 	this->itemCountPairs = {};
 	InputFileToMap();
 	MapToOutputFile();
 }
 
-void IOFiles::PrintItemCountPair(string& itemName) {
-	if (this->itemCountPairs.count(itemName) == 0) {
-		cout << "Item not present. Enter a different item name:" << endl;
-		getline(cin, itemName);
-		PrintItemCountPair(itemName);
+// For the first menu option, easier to access the map from this class.
+// Checks if the input begins with an alphabet character and loops until an item
+// present in the map is input or terminates if q is input.
+void IOFiles::PrintItemCountAlone(string& itemName) {
+	if (isalpha(itemName.at(0))) {
+		itemName[0] = toupper(itemName[0]);
 	}
-	else {
-		cout << itemName << " " << this->itemCountPairs.at(itemName) << endl << endl;
+	
+	while (itemName != "Q") {
+		if (this->itemCountPairs.count(itemName) == 0) {
+			cout << "Item not present. Enter a different item name or Q/q to return to menu:" << endl;
+			getline(cin, itemName);
+			PrintItemCountAlone(itemName);
+		}
+		else {
+			cout << endl << this->itemCountPairs.at(itemName) << endl << endl;
+		}
 	}
-
 }
