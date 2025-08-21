@@ -12,16 +12,17 @@ UserMenu::UserMenu() {
 
 //Display menu that provides options for user and prompt for input.
 void UserMenu::PrintMenu() {
-	cout << setw(50) << setfill('-') << "" << endl;
-	cout << setw(38) << " Corner Grocer Item Frequency " << setw(10) << "" << setfill(' ') << endl;
-	cout << setw(40) << setfill('-') << "" << setfill(' ') << endl << endl;
+	cout << setw(62) << setfill('-') << "" << endl;
+	cout << setw(46) << right << " Corner Grocer Item Frequency " << setw(16) << "" << setfill(' ') << endl;
+	cout << setw(62) << setfill('-') << "" << setfill(' ') << endl;
 
-	cout << "| 1: Search for item and display amount ordered.             |" << endl;
-	cout << "| 2: Display list of items and order frequency.              |" << endl;
-	cout << "| 3: Display list of items and order frequency as histogram. |" << endl;
-	cout << "| 4: Exit program.                                           |\n" << endl;
+	cout << "|  1: Search for item and display amount ordered.             |" << endl;
+	cout << "|  2: Display list of items and order frequency.              |" << endl;
+	cout << "|  3: Display list of items and order frequency as histogram. |" << endl;
+	cout << "|  4: Exit program.                                           |" << endl;
 
-	cout << "Select an option (1-4)" << endl;
+	cout << "|  Select an option (1-4)                                     |" << endl;
+	cout << setw(62) << setfill('-') << "" << setfill(' ') << endl << endl;
 
 	// Accept user input as string for easier input validation.
 	getline(cin, this->menuSelection);
@@ -61,7 +62,7 @@ void UserMenu::UserInputItemFreq() {
 // Display a list of each item name followed by how many times it appears in the original input file
 void UserMenu::PrintItemCountList() {
 	cout << setw(50) << setfill('=') << "" << setfill(' ') << endl;
-	cout << setw(40) << setfill('-') << " List of Items and Number Sold " << setw(10) << "" << setfill(' ') << endl;
+	cout << setw(40) << setfill('-') << right << " List of Items and Number Sold " << setw(10) << "" << setfill(' ') << endl;
 	cout << setw(50) << setfill('=') << "" << setfill(' ') << endl;
 	cout << setw(25) << left << "ITEM NAME" << setw(25) << left << "NUMBER SOLD" << endl;
 
@@ -77,7 +78,7 @@ void UserMenu::PrintItemCountList() {
 // Each name has a histogram bar representing how often that item appeared.
 void UserMenu::PrintItemCountHist() {
 	cout << setw(50) << setfill('=') << "" << setfill(' ') << endl;
-	cout << setw(43) << setfill('-') << " Histogram of Items and Number Sold " << setw(7) << "" << setfill(' ') << endl;
+	cout << setw(43) << setfill('-') << right << " Histogram of Items and Number Sold " << setw(7) << "" << setfill(' ') << endl;
 	cout << setw(50) << setfill('=') << "" << setfill(' ') << endl << endl;
 	
 	// For every item in the itemMap, display the item name and bar representing its frequency.
@@ -86,6 +87,8 @@ void UserMenu::PrintItemCountHist() {
 
 		cout << setw(25) << left << item.first << setw(itemCount) << setfill('*') << left << "" << setfill(' ') << endl;
 	}
+
+	cout << setw(50) << setfill('=') << "" << setfill(' ') << endl << endl;
 }
 
 // Switch with each case representing a menu option. Runs the function that matches each menu option.

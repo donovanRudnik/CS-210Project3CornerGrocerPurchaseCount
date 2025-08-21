@@ -51,7 +51,7 @@ int IOFiles::MapToOutputFile() {
 	ofstream outFS;
 
 	outFS.open("frequency.dat");
-
+	cout << "Opening frequency.dat" << endl;
 	if (!outFS.is_open()) {
 		cout << "frequency.dat could not be opened" << endl;
 		return 1;
@@ -63,6 +63,7 @@ int IOFiles::MapToOutputFile() {
 	}
 
 	outFS.close();
+	cout << "Closing frequency.dat" << endl;
 	return 0;
 }
 
@@ -90,6 +91,7 @@ void IOFiles::PrintItemCountAlone(string& itemName) {
 		}
 		else {
 			cout << endl << this->itemCountPairs.at(itemName) << endl << endl;
+			itemName = "Q";
 		}
 	}
 }

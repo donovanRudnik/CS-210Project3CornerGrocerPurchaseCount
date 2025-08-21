@@ -7,7 +7,6 @@ using namespace std;
 
 class IOFiles {
 	public:
-		int MapToOutputFile();
 		void PrintItemCountAlone(string& itemName);
 		map<string, int> GetMap() { return this->itemCountPairs; }
 		IOFiles();
@@ -15,7 +14,7 @@ class IOFiles {
 	private:
 		map<string, int> itemCountPairs;
 		int InputFileToMap();
-
+		int MapToOutputFile();
 };
 
 #endif
