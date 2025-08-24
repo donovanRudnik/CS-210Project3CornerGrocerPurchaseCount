@@ -5,9 +5,45 @@ using namespace std;
 
 #include "IOFiles.h"
 
+int IOFiles::FrequencyFileToMap(){
+	ifstream inFS;
+	string itemName;
+	int itemFrequency;
+
+	cout << "Opening frequency.dat" << endl;
+
+	inFS.open("frequency.dat");
+
+	if (!inFS.is_open()) {
+		cout << "Could not open frequency.dat" << endl;
+		return 1;
+	}
+
+	while (!inFS.fail()) {
+		inFS >> itemName;
+		inFS >> itemFrequency;
+		if (this->itemCountPairs.count(itemName) == 0) {
+			this->itemCountPairs.emplace(itemName, itemFrequency);
+		}
+		else {
+			this->itemCountPairs.at(itemName) += itemFrequency;
+		}
+	}
+
+	if (!inFS.eof()) {
+		cout << "Failed to reach end of frequency.dat" << endl;
+		return 1;
+	}
+
+	cout << "Closing frequency.dat" << endl;
+
+	inFS.close();
+	return 0;
+}
+
 // Opens a text file containing a list of produce items. Adds each item to a map
 // with keys representing item names and values representing how often the item appears.
-int IOFiles::InputFileToMap() {
+int IOFiles::InputFileToMap(string fileName) {
 	ifstream inFS;
 	string itemName;
 	int itemFrequency;
@@ -71,8 +107,7 @@ int IOFiles::MapToOutputFile() {
 // the .txt file, and then outputs the map information to the .dat file.
 IOFiles::IOFiles() {
 	this->itemCountPairs = {};
-	InputFileToMap();
-	MapToOutputFile();
+	FrequencyFileToMap();
 }
 
 // For the first menu option, easier to access the map from this class.

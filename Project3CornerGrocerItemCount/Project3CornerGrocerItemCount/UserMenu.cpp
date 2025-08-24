@@ -9,6 +9,10 @@ UserMenu::UserMenu() {
 	this->menuNumSelection = 0;
 }
 
+void UserMenu::PrintFileOpenMenu() {
+
+}
+
 
 //Display menu that provides options for user and prompt for input.
 void UserMenu::PrintMenu() {
@@ -26,16 +30,21 @@ void UserMenu::PrintMenu() {
 
 	// Accept user input as string for easier input validation.
 	getline(cin, this->menuSelection);
-	InputValidation(this->menuSelection);
+	InputValidation(this->menuSelection, 1);
 	return;
 }
 
 // Check that user input a valid value. If input is an alphabet character or outside of the range of options,
 // run the print menu function again. Input saved as object member for easier access.
-void UserMenu::InputValidation(string& userInput) {
+void UserMenu::InputValidation(string& userInput, int menuType) {
 	if (isalpha(userInput.at(0))) {
 		cout << "Enter an option from the menu." << endl;
-		PrintMenu();
+		if (menuType == 0) {
+			PrintFileOpenMenu();
+		}
+		else {
+			PrintMenu();
+		}
 	}
 	else if (isdigit(userInput.at(0))) {
 		userInput = userInput.at(0);
@@ -43,7 +52,12 @@ void UserMenu::InputValidation(string& userInput) {
 
 		if (this->menuNumSelection < 1 || this->menuNumSelection > 4) {
 			cout << "Enter an option from the menu." << endl;
-			PrintMenu();
+			if (menuType == 0) {
+				PrintFileOpenMenu();
+			}
+			else {
+				PrintMenu();
+			}
 		}
 	}
 	return;

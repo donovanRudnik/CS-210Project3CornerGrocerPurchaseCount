@@ -10,6 +10,7 @@ using namespace std;
 
 class UserMenu {
 	public:
+		void PrintFileOpenMenu();
 		void PrintMenu();
 		void MenuFunctions();
 		int GetMenuNumSelection() { return menuNumSelection; }
@@ -20,7 +21,7 @@ class UserMenu {
 		int menuNumSelection;
 		IOFiles IOMapAccess;
 		map<string, int> itemMap = IOMapAccess.GetMap();
-		void InputValidation(string& userInput);
+		void InputValidation(string& userInput, int menuType);
 		void UserInputItemFreq();
 		void PrintItemCountList();
 		void PrintItemCountHist();
